@@ -7,6 +7,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot.Args;
 using Message = Telegram.Bot.Types.Message;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace myBD
 {
@@ -30,24 +31,24 @@ namespace myBD
                     var message = AddItemToOrder(e.Message);
 
                 }
-                else if (e.Message.Text.ToLower().Contains("яблуко"))
+                else if (e.Message.Text.ToLower().Contains("iphone12"))
                 {
-                    order.applesCount++;
+                    order.Iphone12Count++;
                     var message = AddItemToOrder(e.Message);
                 }
-                else if (e.Message.Text.ToLower().Contains("вишня"))
+                else if (e.Message.Text.ToLower().Contains("airpods2"))
                 {
-                    order.grapesCount++;
+                    order.AirpodsCount++;
                     var message = AddItemToOrder(e.Message);
                 }
-                else if (e.Message.Text.ToLower().Contains("слива"))
+                else if (e.Message.Text.ToLower().Contains("watch6"))
                 {
-                    order.plumsCount++;
+                    order.Watch6Count++;
                     var message = AddItemToOrder(e.Message);
                 }
-                else if (e.Message.Text.ToLower().Contains("груша"))
+                else if (e.Message.Text.ToLower().Contains("watch7"))
                 {
-                    order.pearsCount++;
+                    order.Watch7Count++;
                     var message = AddItemToOrder(e.Message);
                 }
                 else if (e.Message.Text.ToLower().Contains("статистика") || e.Message.Text.ToLower().Contains("статистику"))
@@ -59,12 +60,37 @@ namespace myBD
                 }
                 else if (e.Message.Text.ToLower().Contains("корзина") || e.Message.Text.ToLower().Contains("корзину"))
                 {
-                    int count = order.pearsCount + order.plumsCount + order.grapesCount + order.applesCount;
+                    int count = order.AirpodsCount + order.Iphone12Count + order.Watch6Count + order.Watch7Count;
                     string text = $"Товарів в корзині: {count}\n" +
-                        $"Яблука : {order.applesCount} шт\n" +
-                        $"Вишні : {order.grapesCount} шт\n" +
-                        $"Сливи : {order.plumsCount} шт\n" +
-                        $"Груші : {order.pearsCount} шт\n";
+                        $"airpods2 : {order.AirpodsCount} шт\n" +
+                        $"iphone12 : {order.Iphone12Count} шт\n" +
+                        $"watch6 : {order.Watch6Count} шт\n" +
+                        $"watch7 : {order.Watch7Count} шт\n";
+
+                    using (MySqlConnection con1 = new MySqlConnection(h.conStr))
+                    {
+                        
+
+                        string sql = "INSERT INTO Orders" +
+                                               "(id_orders, status, date, client, name_of_product, price)" +
+                                               " VALUES (@TK1, @TK2, @TK3, @TK4, @TK5, @TK6)";
+                        MySqlCommand cmd = new MySqlCommand(sql, con1);
+
+                        Random random = new Random();
+                        DateTime dateTime = new DateTime();
+                        int number = random.Next(0, 100000);
+                        cmd.Parameters.AddWithValue("@TK1", number.ToString());
+                        cmd.Parameters.AddWithValue("@TK2", "Send");
+                        cmd.Parameters.AddWithValue("@TK3", dateTime.ToString());
+                        cmd.Parameters.AddWithValue("@TK4", "Client");
+                        cmd.Parameters.AddWithValue("@TK5", "Airpods2");
+                        cmd.Parameters.AddWithValue("@TK6", "135");
+
+                        con1.Open();
+                        cmd.ExecuteNonQuery();
+                        con1.Close();
+                    }
+
                     await botClient.SendTextMessageAsync(chatId: e.Message.Chat.Id,
                         text: text,
                         replyMarkup: new ReplyKeyboardRemove()
@@ -126,8 +152,8 @@ namespace myBD
             ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new[]
                 {
-                        new KeyboardButton[] { "Яблуко", "Вишня"},
-                        new KeyboardButton[] { "Слива", "Груша" },
+                        new KeyboardButton[] { "airpods2", "iphone12"},
+                        new KeyboardButton[] { "watch6", "watch7" },
                         new KeyboardButton[] { "Перейти в корзину" }
                 })
             {
@@ -141,9 +167,9 @@ namespace myBD
     }
     class Order
     {
-        public int applesCount { get; set; } = 0;
-        public int grapesCount { get; set; } = 0;
-        public int plumsCount { get; set; } = 0;
-        public int pearsCount { get; set; } = 0;
+        public int AirpodsCount { get; set; } = 0;
+        public int Iphone12Count { get; set; } = 0;
+        public int Watch6Count { get; set; } = 0;
+        public int Watch7Count { get; set; } = 0;
     }
 }
