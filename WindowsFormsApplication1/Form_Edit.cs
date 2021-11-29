@@ -25,7 +25,7 @@ namespace myBD
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string sqlStr = "UPDATE Orders SET" + " " + textBox1.Text + " WHERE " + textBox2.Text;
+            string sqlStr = "UPDATE Orders SET status='" + comboBox1.Text + "' WHERE id_orders ='" + textBox1.Text + "'";
             if (MessageBox.Show("Are you sure you want to replace the data?", "Replace",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {

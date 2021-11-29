@@ -61,7 +61,7 @@
             this.проПрограмуToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(813, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(813, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -285,7 +285,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "myBD";
-            this.Text = "myBD";
+            this.Text = "Order";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.myBD_FormClosed);
             this.Load += new System.EventHandler(this.myBD_Load);
             this.menuStrip1.ResumeLayout(false);

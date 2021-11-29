@@ -21,6 +21,8 @@ namespace myBD
             InitializeComponent();
             h.conStr = "server = 193.93.216.145; CharacterSet = cp1251;" +
                 "user = sqlkns21_1_it; database = sqlkns21_1_it; password = kns20_it;";
+            h.conStr2 = "server = 193.93.216.145; CharacterSet = cp1251;" +
+                "user = user; database = sqlkns21_1_it; password = 2;";
 
             DataTable dt = h.myfunDT("select * from MyUser");
 
@@ -65,12 +67,19 @@ namespace myBD
         {
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
     static class h
     {
         public static string conStr { get; set; }
+        public static string conStr2 { get; set; }
         public static string typeuser { get; set; }
+        public static string typeuser2 { get; set; }
         public static BindingSource bs1 { get; set; }
         public static string curVal0 { get; set; }
         public static string keyName { get; set; }
