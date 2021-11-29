@@ -8,17 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Telegram.Bot;
 
 namespace myBD
 {
     public partial class myBD : Form
     {
+
         public string[,] matrix1, matrix2;
-        public myBD()
+        private BotHandlers handlers;
+        public myBD(BotHandlers handlers)
         {
+            this.handlers = handlers;
             InitializeComponent();
             h.conStr = "server = 193.93.216.145; CharacterSet = cp1251;" +
-              "user = sqlkns21_1_it; database = sqlkns21_1_it; password = kns20_it;";
+              "user = sqlkns21_1_it; database = sqlkns21_1_it; password = kns20_it; convert zero datetime=True";
 
             DataTable dt = h.myfunDT("select * from Client");
 
@@ -86,7 +90,7 @@ namespace myBD
         }
         private void myBD_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form1 f1 = new Form1();
+            Form1 f1 = new Form1(handlers);
             f1.Show();
         }
 

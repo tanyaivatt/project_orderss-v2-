@@ -6,10 +6,11 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot.Args;
 using Message = Telegram.Bot.Types.Message;
+using System.Data;
 
 namespace myBD
 {
-    internal class BotHandlers
+    public class BotHandlers
     {
         public BotHandlers(ITelegramBotClient _botclient)
         {
@@ -51,8 +52,10 @@ namespace myBD
                 }
                 else if (e.Message.Text.ToLower().Contains("статистика") || e.Message.Text.ToLower().Contains("статистику"))
                 {
+                    DataTable table = h.myfunDT("select * from Orders");
+                    int count = table.Rows.Count;
                     await botClient.SendTextMessageAsync(chatId: e.Message.Chat.Id,
-                        text: $"Всього замовлень: 3");
+                        text: $"Всього замовлень: {count}");
                 }
                 else if (e.Message.Text.ToLower().Contains("корзина") || e.Message.Text.ToLower().Contains("корзину"))
                 {

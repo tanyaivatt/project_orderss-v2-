@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
+using Telegram.Bot;
+
 
 
 namespace myBD
@@ -16,8 +18,10 @@ namespace myBD
     {
         public string[,] matrix;
 
-        public Form1()
+        private BotHandlers handlers;
+        public Form1(BotHandlers handlers)
         {
+            this.handlers = handlers;
             InitializeComponent();
             h.conStr = "server = 193.93.216.145; CharacterSet = cp1251;" +
                 "user = sqlkns21_1_it; database = sqlkns21_1_it; password = kns20_it;";
@@ -49,7 +53,7 @@ namespace myBD
                     {
                         h.typeuser = matrix[i, 2];
                         this.Hide();
-                        myBD f0 = new myBD();
+                        myBD f0 = new myBD(handlers);
                         f0.ShowDialog();
                     }
                     else
